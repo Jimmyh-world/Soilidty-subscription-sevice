@@ -2,7 +2,9 @@
 
 This document outlines potential enhancements and advanced features that could be implemented to evolve the SubscriptionPlatform from an academic project into a production-ready solution.
 
-## Current Implementation Status
+## 🚀 Current Implementation Status
+
+**Live Contract**: [`0xb423403e9F65C2fA17dA91f4A05Ee445398a8652`](https://sepolia.etherscan.io/address/0xb423403e9F65C2fA17dA91f4A05Ee445398a8652) on [Sepolia Testnet](https://sepolia.etherscan.io/)
 
 This document provides a roadmap for evolving the SubscriptionPlatform from its current course-aligned implementation to a production-ready solution.
 

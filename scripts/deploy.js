@@ -1,10 +1,15 @@
 const { ethers } = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
   console.log("Starting deployment of SubscriptionPlatform...");
 
-  // Get the contract factory
-  const SubscriptionPlatform = await ethers.getContractFactory("SubscriptionPlatform");
+  // Get the deployer signer
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying with account:", deployer.address);
+
+  // Get the contract factory with signer
+  const SubscriptionPlatform = await ethers.getContractFactory("SubscriptionPlatform", deployer);
 
   // Deploy the contract
   console.log("Deploying SubscriptionPlatform...");

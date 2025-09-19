@@ -2,6 +2,12 @@
 
 This document provides an in-depth analysis of the SubscriptionPlatform smart contract's technical implementation, focusing on gas optimizations, security measures, and architectural decisions.
 
+## 🚀 Live Contract Information
+
+- **Contract Address**: [`0xb423403e9F65C2fA17dA91f4A05Ee445398a8652`](https://sepolia.etherscan.io/address/0xb423403e9F65C2fA17dA91f4A05Ee445398a8652)
+- **Network**: [Sepolia Testnet](https://sepolia.etherscan.io/)
+- **Source Code**: [Verified on Etherscan](https://sepolia.etherscan.io/address/0xb423403e9F65C2fA17dA91f4A05Ee445398a8652#code)
+
 ## Contract Architecture
 
 The SubscriptionPlatform contract is designed with modularity and efficiency in mind, implementing several advanced Solidity patterns:
