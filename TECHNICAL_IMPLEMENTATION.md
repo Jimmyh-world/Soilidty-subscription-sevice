@@ -55,15 +55,15 @@ struct Subscription {
 **Savings**: Reduces storage costs while enabling struct packing
 
 ### 3. Custom Errors
-**Implementation**: Custom errors instead of string-based require messages
+**Implementation**: Custom errors for specific validation cases, with string requires in modifiers following course patterns
 ```solidity
 error NotServiceOwner();
 error ServiceNotExists();
 error ServicePaused();
-// vs require(condition, "String message");
+// Used alongside require() statements for different validation types
 ```
-**Impact**: Significantly reduces contract size and deployment costs
-**Savings**: ~50-100 gas per revert, smaller bytecode
+**Impact**: Reduces contract size for specific error cases
+**Savings**: ~50-100 gas per custom error revert, smaller bytecode for error definitions
 
 ### 4. Storage Caching
 **Implementation**: Cache storage reads in memory variables

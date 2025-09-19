@@ -18,7 +18,7 @@ SubscriptionPlatform is a smart contract that enables the creation and managemen
 ### For Subscribers
 - **Easy Subscription**: Subscribe to any active service with a single transaction
 - **Automatic Extension**: Extend existing subscriptions seamlessly
-- **Gift Subscriptions**: Purchase subscriptions as gifts for other addresses
+- **Gift Subscriptions**: Purchase new subscription periods as gifts for other addresses
 - **Transparent Status**: Check subscription status and end dates at any time
 
 ### Security & Reliability

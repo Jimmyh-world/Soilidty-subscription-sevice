@@ -147,7 +147,10 @@ describe("SubscriptionPlatform", function () {
 
     it("Should allow owner to change service fee", async function () {
       const newFee = ethers.parseEther("0.2");
-      await subscriptionPlatform.connect(user1).changeServiceFee(1, newFee);
+
+      await expect(subscriptionPlatform.connect(user1).changeServiceFee(1, newFee))
+        .to.emit(subscriptionPlatform, "ServiceFeeChanged")
+        .withArgs(1, DEFAULT_FEE, newFee);
 
       const [, fee, ,] = await subscriptionPlatform.getServiceInfo(1);
       expect(fee).to.equal(newFee);
@@ -229,6 +232,19 @@ describe("SubscriptionPlatform", function () {
 
       // Fast forward past subscription end time
       await time.increase(DEFAULT_PERIOD + 1);
+
+      expect(await subscriptionPlatform.hasActiveSubscription(1, user2.address)).to.be.false;
+      expect(await subscriptionPlatform.getSubscriptionEndTime(1, user2.address)).to.equal(0);
+    });
+
+    it("Should return false for subscription at exact expiry time", async function () {
+      const tx = await subscriptionPlatform.connect(user2).subscribe(1, { value: DEFAULT_FEE });
+      const receipt = await tx.wait();
+      const block = await ethers.provider.getBlock(receipt.blockNumber);
+      const expectedEndTime = block.timestamp + DEFAULT_PERIOD;
+
+      // Set time to exact expiry moment (endTime == block.timestamp should be false)
+      await time.increaseTo(expectedEndTime);
 
       expect(await subscriptionPlatform.hasActiveSubscription(1, user2.address)).to.be.false;
       expect(await subscriptionPlatform.getSubscriptionEndTime(1, user2.address)).to.equal(0);

@@ -49,6 +49,12 @@ contract SubscriptionPlatform {
     /// @param amount Amount withdrawn
     event RevenueWithdrawn(uint256 indexed serviceId, address indexed owner, uint256 amount);
 
+    /// @notice Emitted when a service fee is changed
+    /// @param serviceId Service that had fee changed
+    /// @param oldFee Previous fee amount
+    /// @param newFee New fee amount
+    event ServiceFeeChanged(uint256 indexed serviceId, uint256 oldFee, uint256 newFee);
+
     // === CUSTOM ERRORS ===
 
     /// @notice Thrown when caller is not the service owner
@@ -169,10 +175,8 @@ contract SubscriptionPlatform {
 
         userSubscription.endTime = uint128(newEndTime);
 
-        // Assert to ensure revenue accounting is correct (should never fail in normal operation)
-        uint256 oldRevenue = serviceRevenue[serviceId];
+        // Update revenue accounting (Solidity 0.8.x provides overflow protection)
         serviceRevenue[serviceId] += service.fee;
-        assert(serviceRevenue[serviceId] > oldRevenue);
 
         // Interactions
         emit SubscriptionPurchased(serviceId, msg.sender, newEndTime);
@@ -213,10 +217,8 @@ contract SubscriptionPlatform {
 
         recipientSubscription.endTime = uint128(newEndTime);
 
-        // Assert to ensure revenue accounting is correct (should never fail in normal operation)
-        uint256 oldRevenue = serviceRevenue[serviceId];
+        // Update revenue accounting (Solidity 0.8.x provides overflow protection)
         serviceRevenue[serviceId] += service.fee;
-        assert(serviceRevenue[serviceId] > oldRevenue);
 
         // Interactions
         emit SubscriptionPurchased(serviceId, recipient, newEndTime);
@@ -238,7 +240,11 @@ contract SubscriptionPlatform {
         require(newFee > 0, "New fee must be greater than zero");
 
         // Effects
+        uint256 oldFee = services[serviceId].fee;
         services[serviceId].fee = newFee;
+
+        // Interactions
+        emit ServiceFeeChanged(serviceId, oldFee, newFee);
     }
 
     /// @notice Pause or resume a service

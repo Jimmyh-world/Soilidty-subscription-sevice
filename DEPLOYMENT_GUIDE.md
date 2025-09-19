@@ -35,7 +35,7 @@ Edit the `.env` file with your configuration:
 SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_PROJECT_ID
 
 # Private key of your deployment wallet (NEVER share this!)
-PRIVATE_KEY=your_private_key_here
+SEPOLIA_PRIVATE_KEY=your_private_key_here
 
 # Etherscan API key for contract verification
 ETHERSCAN_API_KEY=your_etherscan_api_key_here
