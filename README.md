@@ -180,8 +180,47 @@ The contract implements several advanced patterns for security and gas efficienc
 
 - Struct packing reduces storage operations
 - Storage caching minimizes redundant SLOAD operations
-- Custom errors instead of string reverts
+- Custom errors defined for specific cases
 - Efficient mapping usage over arrays for lookups
+
+## Deliberate Coursework Choices
+
+This implementation follows course material patterns and academic requirements:
+
+### Error Handling Strategy
+- **String-based `require()` statements** in modifiers align with course teaching patterns
+- **Custom errors** are defined and used for specific validation cases
+- **Mixed approach** demonstrates understanding of both patterns while staying course-appropriate
+
+### ETH Transfer Method
+- **`transfer()` function** is used following course examples (see `BCU24D_SmartContracts/Lektion 2/Crowdfunding.sol`)
+- **2300 gas limit** is acceptable for academic demonstration purposes
+- **Production migration path** documented in FUTURE_IMPROVEMENTS.md
+
+### Data Model Design
+- **Explicit `isActive` boolean** follows course patterns for clear state management
+- **Struct design** prioritizes readability over maximum optimization for educational clarity
+
+## Production Hardening Plan
+
+For real-world deployment, key improvements are documented in `FUTURE_IMPROVEMENTS.md`:
+
+1. **Security Enhancements**
+   - Migrate from `transfer()` to `call()` for ETH transfers
+   - Implement comprehensive custom error usage
+   - Add reentrancy protection tests
+
+2. **Gas Optimizations**
+   - Remove redundant `isActive` field (derive from `endTime`)
+   - Implement bitfield flags instead of boolean fields
+   - Advanced struct packing optimizations
+
+3. **Feature Additions**
+   - Multi-period purchase functionality
+   - Service ownership transfer mechanisms
+   - ERC-20 token payment support
+
+See `FUTURE_IMPROVEMENTS.md` for complete production roadmap with implementation priorities.
 
 ## Author
 

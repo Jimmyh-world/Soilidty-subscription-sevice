@@ -2,6 +2,9 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { time } = require("@nomicfoundation/hardhat-network-helpers");
 
+// Note: Balance checks use receipt.gasPrice for EIP-1559 compatibility
+// For production testing with changeEtherBalances(), see FUTURE_IMPROVEMENTS.md
+
 describe("SubscriptionPlatform", function () {
   let subscriptionPlatform;
   let owner, user1, user2, user3;
@@ -90,12 +93,15 @@ describe("SubscriptionPlatform", function () {
 
       const finalBalance = await ethers.provider.getBalance(user2.address);
 
-      // Verify that the user was refunded (balance should be higher than if they paid the full excess)
-      const worstCaseBalance = initialBalance - excessAmount - (receipt.gasUsed * receipt.gasPrice);
-      const bestCaseBalance = initialBalance - DEFAULT_FEE;
+      // Calculate expected balance considering gas costs (EIP-1559 safe calculation)
+      const gasUsed = receipt.gasUsed * receipt.gasPrice;
+      const expectedBalance = initialBalance - DEFAULT_FEE - gasUsed;
 
-      expect(finalBalance).to.be.gt(worstCaseBalance);
-      expect(finalBalance).to.be.lt(bestCaseBalance);
+      // Verify user was refunded the excess (within small tolerance for gas estimation)
+      expect(finalBalance).to.be.closeTo(expectedBalance, ethers.parseEther("0.001"));
+
+      // Verify user definitely didn't pay the full excess amount
+      expect(finalBalance).to.be.gt(initialBalance - excessAmount - gasUsed);
     });
 
     it("Should revert with insufficient payment", async function () {
@@ -195,14 +201,23 @@ describe("SubscriptionPlatform", function () {
     it("Should allow owner to withdraw revenue", async function () {
       const initialBalance = await ethers.provider.getBalance(user1.address);
 
-      await expect(subscriptionPlatform.connect(user1).withdrawRevenue(1))
+      const tx = await subscriptionPlatform.connect(user1).withdrawRevenue(1);
+      const receipt = await tx.wait();
+
+      // Verify event emission
+      await expect(tx)
         .to.emit(subscriptionPlatform, "RevenueWithdrawn")
         .withArgs(1, user1.address, DEFAULT_FEE);
 
+      // Verify revenue cleared
       expect(await subscriptionPlatform.serviceRevenue(1)).to.equal(0);
 
+      // Verify balance increase (revenue - gas costs)
       const finalBalance = await ethers.provider.getBalance(user1.address);
-      expect(finalBalance).to.be.gt(initialBalance);
+      const gasUsed = receipt.gasUsed * receipt.gasPrice;
+      const expectedBalance = initialBalance + DEFAULT_FEE - gasUsed;
+
+      expect(finalBalance).to.be.closeTo(expectedBalance, ethers.parseEther("0.001"));
     });
 
     it("Should revert when non-owner tries to withdraw", async function () {
