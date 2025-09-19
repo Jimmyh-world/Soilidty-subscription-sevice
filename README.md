@@ -18,6 +18,24 @@
 | **Documentation** | ✅ **COMPLETE** | [Technical Docs](./TECHNICAL_IMPLEMENTATION.md) • [Deployment Guide](./DEPLOYMENT_GUIDE.md) |
 | **Quality** | ✅ **FULLY TESTED** | 95% coverage, all tests passing |
 
+## 📑 Table of Contents
+
+| Section | Description |
+|---------|-------------|
+| [🌟 What is SubscriptionPlatform?](#what-is-subscriptionplatform) | Platform overview and key innovations |
+| [⚡ Features](#features) | Complete feature breakdown for creators and subscribers |
+| [🔧 How It Works](#how-it-works) | Step-by-step platform mechanics |
+| [📋 Contract Interface](#contract-interface) | Function signatures and parameters |
+| [🚀 Quick Start](#quick-start) | Installation and setup instructions |
+| [🚀 Live Deployment](#live-deployment) | Sepolia testnet deployment details and links |
+| [📝 Usage Examples](#usage-examples) | Code examples for creating services and subscribing |
+| [🛡️ Security Considerations](#security-considerations) | Security measures and implementation details |
+| [⚙️ Gas Optimizations](#gas-optimizations) | Performance optimizations and efficiency measures |
+| [📚 Complete Documentation Suite](#complete-documentation-suite) | Links to all technical documentation |
+| [🔧 Production Hardening Plan](#production-hardening-plan) | Roadmap for production deployment |
+| [🏗️ Technical Architecture](#technical-architecture) | Implementation highlights and components |
+| [📄 License](#license) | MIT license information |
+
 ## 🌟 What is SubscriptionPlatform?
 
 SubscriptionPlatform is a **decentralized subscription management system** built on Ethereum that revolutionizes how subscription services operate. Unlike traditional centralized platforms, this smart contract gives **complete autonomy** to service creators while ensuring **transparency and security** for all participants.
