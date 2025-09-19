@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "hardhat": "^2.26.3"

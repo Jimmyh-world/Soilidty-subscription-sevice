@@ -291,7 +291,7 @@ Key implementation highlights:
 - [x] **Quality Assurance**: [29 tests](./test/SubscriptionPlatform.test.js), 95% coverage
 
 ### ✅ Advanced Features
-- [x] **Robust Error Handling**: [6 custom errors](./contracts/SubscriptionPlatform.sol#L52-L58) with `require`, `assert`, and `revert` patterns
+- [x] **Custom Errors (defined)**: Custom errors are declared; string `require()` reverts are used throughout to match course patterns. The [production roadmap](./FUTURE_IMPROVEMENTS.md) details a full migration to custom errors.
 - [x] **Fallback Functions**: [Both fallback and receive](./contracts/SubscriptionPlatform.sol#L255-L268) implemented for ETH handling
 - [x] **Live Deployment**: [✅ Verified on Sepolia](https://sepolia.etherscan.io/address/0xb423403e9F65C2fA17dA91f4A05Ee445398a8652)
 - [x] **Security Measures**: [Multiple optimizations](./TECHNICAL_IMPLEMENTATION.md) and protective patterns
