@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { time } = require("@nomicfoundation/hardhat-network-helpers");
 
-// Note: Balance checks use receipt.gasPrice for EIP-1559 compatibility
+// Note: Balance checks use receipt.gasPrice (Hardhat local) or receipt.effectiveGasPrice (EIP-1559)
 // For production testing with changeEtherBalances(), see FUTURE_IMPROVEMENTS.md
 
 describe("SubscriptionPlatform", function () {

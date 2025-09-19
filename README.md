@@ -27,6 +27,7 @@ SubscriptionPlatform is a smart contract that enables the creation and managemen
 - **Gas Optimized**: Packed structs and efficient storage usage
 - **Error Handling**: Comprehensive custom errors for clear feedback
 - **Revenue Safety**: Secure withdrawal mechanisms with proper accounting
+- **ETH Transfers**: Uses `transfer()` per course material; migrating to `call()` is documented in **FUTURE_IMPROVEMENTS.md**
 
 ## How It Works
 
@@ -165,7 +166,7 @@ The contract implements several advanced patterns for security and gas efficienc
 - **Packed Structs**: Data structures are optimized to minimize storage costs
 - **Access Control**: Modifiers ensure only authorized users can perform sensitive operations
 - **CEI Pattern**: All state changes follow Checks-Effects-Interactions for reentrancy protection
-- **Custom Errors**: Gas-efficient error handling with descriptive custom errors
+- **Custom Errors (defined)**: Custom errors are defined; string reverts are used throughout to match course patterns
 - **Event Logging**: Comprehensive event emission for off-chain monitoring
 
 ## Security Considerations
